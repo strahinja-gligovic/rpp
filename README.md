@@ -1,7 +1,11 @@
 # rpp
 
-run ng build in frontend folder
+Razvoj Programskih Proizvoda
 
-maven install ->
- start the spring boot app
+## Installation
 
+Database backup file in /backup includes create schema 'rpp' assuming default postgres user. 
+
+## Deployment
+
+Running maven install downloads node and npm in /frontend and builds the angular2 app to ../src/main/webapp as specified in angular-cli.json. Run it as a spring boot app.
