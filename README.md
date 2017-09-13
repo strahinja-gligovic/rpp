@@ -5,6 +5,7 @@ Razvoj Programskih Proizvoda
 ## Installation
 
 Database backup file in /backup includes create schema 'rpp' assuming default postgres user. 
+Set application.properties accordingly.
 
 ## Deployment
 

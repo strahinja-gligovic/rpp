@@ -5,7 +5,7 @@
 -- Dumped from database version 9.6.4
 -- Dumped by pg_dump version 9.6.4
 
--- Started on 2017-08-26 20:52:04
+-- Started on 2017-09-13 00:50:19
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -25,6 +25,23 @@ CREATE SCHEMA rpp;
 
 
 ALTER SCHEMA rpp OWNER TO postgres;
+
+--
+-- TOC entry 1 (class 3079 OID 12387)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2164 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
 
 SET search_path = rpp, pg_catalog;
 
@@ -153,39 +170,39 @@ CREATE TABLE student (
 ALTER TABLE student OWNER TO postgres;
 
 --
--- TOC entry 2163 (class 0 OID 0)
+-- TOC entry 2165 (class 0 OID 0)
 -- Dependencies: 192
 -- Name: auto_department; Type: SEQUENCE SET; Schema: rpp; Owner: postgres
 --
 
-SELECT pg_catalog.setval('auto_department', 1, false);
-
-
---
--- TOC entry 2164 (class 0 OID 0)
--- Dependencies: 191
--- Name: auto_faculty; Type: SEQUENCE SET; Schema: rpp; Owner: postgres
---
-
-SELECT pg_catalog.setval('auto_faculty', 1, false);
-
-
---
--- TOC entry 2165 (class 0 OID 0)
--- Dependencies: 189
--- Name: auto_status; Type: SEQUENCE SET; Schema: rpp; Owner: postgres
---
-
-SELECT pg_catalog.setval('auto_status', 4, true);
+SELECT pg_catalog.setval('auto_department', 2, true);
 
 
 --
 -- TOC entry 2166 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: auto_faculty; Type: SEQUENCE SET; Schema: rpp; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auto_faculty', 3, true);
+
+
+--
+-- TOC entry 2167 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: auto_status; Type: SEQUENCE SET; Schema: rpp; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auto_status', 15, true);
+
+
+--
+-- TOC entry 2168 (class 0 OID 0)
 -- Dependencies: 190
 -- Name: auto_student; Type: SEQUENCE SET; Schema: rpp; Owner: postgres
 --
 
-SELECT pg_catalog.setval('auto_student', 1, false);
+SELECT pg_catalog.setval('auto_student', 2, true);
 
 
 --
@@ -194,6 +211,11 @@ SELECT pg_catalog.setval('auto_student', 1, false);
 -- Data for Name: department; Type: TABLE DATA; Schema: rpp; Owner: postgres
 --
 
+COPY department (id, name, label, faculty) FROM stdin;
+100	Industrijsko Inzenjerstvo i Menadzment	IIM	150
+101	Matematika	Mat	152
+102	Ekonomija	Ekon	151
+\.
 
 
 --
@@ -202,7 +224,11 @@ SELECT pg_catalog.setval('auto_student', 1, false);
 -- Data for Name: faculty; Type: TABLE DATA; Schema: rpp; Owner: postgres
 --
 
-INSERT INTO faculty VALUES (3, 'serib', 'bhg');
+COPY faculty (id, name, seat) FROM stdin;
+150	FTN	Novi Sad
+151	FON	Beograd
+152	PMF	Novi Sad
+\.
 
 
 --
@@ -211,10 +237,11 @@ INSERT INTO faculty VALUES (3, 'serib', 'bhg');
 -- Data for Name: status; Type: TABLE DATA; Schema: rpp; Owner: postgres
 --
 
-INSERT INTO status VALUES (1, '2222', '3333');
-INSERT INTO status VALUES (2, 'duvaj', 'kitu');
-INSERT INTO status VALUES (200, 'otkazano', 'uuulud');
-INSERT INTO status VALUES (201, 'dokzno', 'uuulud');
+COPY status (id, name, label) FROM stdin;
+751	Bachelor	Bsc
+752	Master	Msc
+753	Doktorat	Phd
+\.
 
 
 --
@@ -223,6 +250,11 @@ INSERT INTO status VALUES (201, 'dokzno', 'uuulud');
 -- Data for Name: student; Type: TABLE DATA; Schema: rpp; Owner: postgres
 --
 
+COPY student (id, name, last_name, index_number, status, department) FROM stdin;
+100	Marko	Markovic	103	752	100
+101	Janko	Jankovic	301	751	101
+102	Ranko	Rankovic	130	751	102
+\.
 
 
 --
@@ -288,7 +320,7 @@ ALTER TABLE ONLY student
     ADD CONSTRAINT fk_status FOREIGN KEY (status) REFERENCES status(id);
 
 
--- Completed on 2017-08-26 20:52:04
+-- Completed on 2017-09-13 00:50:19
 
 --
 -- PostgreSQL database dump complete
