@@ -1,0 +1,82 @@
+<svg-icon [@easeTitleRight] class="float-right addButton" src="../../../assets/icons/plus.svg" 
+(click)="openModal(template); cancelSelection()"></svg-icon>
+
+<app-title>Status</app-title>
+
+<div class="row" > 
+  <div [ngClass]="{'col-lg-8' : selectedStatus, 'col-md-12': !selectedStatus}" [@fadeInOut] *ngIf="toggle">
+
+    <ngx-datatable #statusTable class="bootstrap striped" [rows]="statuses" [columnMode]="'flex'" [headerHeight]="'auto'"
+      [rowHeight]="'auto'" [trackByProp]="'updated'">
+
+      <ngx-datatable-column name="Name"  prop="name" [flexGrow]="3"></ngx-datatable-column>
+
+      <ngx-datatable-column name="Label" prop="label" [flexGrow]="3"></ngx-datatable-column>
+
+      <ngx-datatable-column [flexGrow]="3" name="Actions" class="float-right" prop="id">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-rowIndex="rowIndex">
+          <svg-icon src="../../../assets/icons/edit.svg" [disabled]="shouldDisableInput" (click)="selectStatus(rowIndex); scroll()"></svg-icon>
+          <span class="svg_break"></span>
+          <svg-icon src="../../../assets/icons/eraser.svg" [disabled]="shouldDisableInput" (click)="deleteStatus(rowIndex)"></svg-icon>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+
+  </div>
+
+  <div id="formContainer" class="col-lg-4 col-md-12 ml-auto" *ngIf="selectedStatus">
+    <form #updateStatusForm="ngForm" (ngSubmit)="updateStatus()">
+      <fieldset [disabled]="!selectedStatus">
+        <div class="form-group">
+          <label>Name: *</label>
+          <input type="text" class="form-control" 
+          [(ngModel)]="selectedStatus.name" name="name"
+          maxlength="100" required>
+        </div>
+
+        <div class="form-group">
+          <label>Label:</label>
+          <input type="text" class="form-control" 
+          [(ngModel)]="selectedStatus.label"
+          maxlength="10" name="label">
+        </div>
+        
+        <button type="submit" [disabled]="updateStatusForm.submitted || !updateStatusForm.valid" class="btn btn-dark">Submit</button>
+        <button type="button" (click)="cancelSelection()" class="btn btn-default">Cancel</button>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+<ng-template #template let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add a Status</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+  </div>
+  <div class="modal-body">
+    <form #addStatusForm="ngForm" id="addStatusForm" (ngSubmit)="addStatus(addStatusForm.value)">
+      <fieldset>
+        <div class="form-group">
+          <label>Name: *</label>
+          <input type="text" class="form-control" name="name" 
+          ngModel
+          maxlength="100" required>
+        </div>
+
+        <div class="form-group">
+          <label>Label:</label>
+          <input type="text" class="form-control" name="label" 
+          ngModel
+          maxlength="10">
+        </div>
+
+      </fieldset>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" form="addStatusForm" class="btn btn-dark" [disabled]="!addStatusForm.valid">Submit</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">Close</button>
+  </div>
+</ng-template>

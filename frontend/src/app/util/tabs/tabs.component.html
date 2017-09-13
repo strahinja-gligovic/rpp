@@ -1,0 +1,28 @@
+<div class="container" style="padding-left: 0; padding-right: 0;">
+    <header class="navbar navbar-light navbar-fixed-top navbar-expand-lg">
+
+        <a class="navbar-brand" [routerLink]="['/']" (click)="navbarCollapsed = true">RPP Projekat 2017</a>
+
+        <button class="navbar-toggler navbar-toggler-right" type="button" (click)="navbarCollapsed = !navbarCollapsed" [attr.aria-expanded]="!navbarCollapsed"
+            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+        <div class="navbar-collapse" [collapse]="navbarCollapsed" id="navbarContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" [routerLinkActive]="['active']">
+                    <a class="nav-link" [routerLink]="['/student']" (click)="navbarCollapsed = true">Students</a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="['active']">
+                    <a class="nav-link" [routerLink]="['/faculty']" (click)="navbarCollapsed = true">Faculty</a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="['active']">
+                    <a class="nav-link" [routerLink]="['/department']" (click)="navbarCollapsed = true">Departments</a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="['active']">
+                    <a class="nav-link" [routerLink]="['/status']" (click)="navbarCollapsed = true">Status</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+</div>

@@ -1,0 +1,145 @@
+<svg-icon [@easeTitleRight] class="float-right addButton" src="../../../assets/icons/plus.svg" (click)="openModal(template)"></svg-icon>
+
+<app-title>Student</app-title>
+
+
+<div class="row">
+    <div class="col-md-12" [@fadeInOut] *ngIf="toggle">
+
+        <ngx-datatable #studentTable ngx-resize-watcher class="bootstrap striped" 
+        [rows]="students" [columnMode]="'force'" [headerHeight]="'auto'"
+            [rowHeight]="'auto'">
+
+            <!-- Expanded Row Detail Template -->
+            <ngx-datatable-row-detail [rowHeight]="'auto'" #detailRow>
+                <ng-template let-row="row" let-expanded="expanded" let-rowIndex="rowIndex" ngx-datatable-row-detail-template>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 col-lg-2"><dt>Index Number:</dt></div>
+                            <div class="col-md-8 col-lg-10"><dd>{{row.indexNumber}}</dd></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-2"><dt>Department:</dt></div>
+                            <div class="col-md-8 col-lg-10"><dd>{{row.department?.name}}</dd></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-2"><dt>Status:</dt></div>
+                            <div class="col-md-8 col-lg-10"><dd>{{row.status?.name}}</dd></div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngx-datatable-row-detail>
+
+            <!-- Responsive Column Template -->
+            <ngx-datatable-column [width]="24" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
+                <ng-template let-row="row" let-expanded="expanded" id="downButton" ngx-datatable-cell-template>
+                    <a [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded" title="Expand/Collapse Row" (click)="toggleExpandRow(row)"
+                        class="desktop-hidden"></a>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Name" prop="name" [flexGrow]="2" >
+                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span class="" (click)="sort()">{{column.name}}</span>
+                </ng-template>
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <span class="">{{value}}</span> <span>{{row.lastName}}</span>
+                </ng-template>
+              </ngx-datatable-column>
+
+            <ngx-datatable-column name="Index" prop="indexNumber" >
+                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span class="mobile-hidden" (click)="sort()">{{column.name}}</span>
+                </ng-template>
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <span class="mobile-hidden">{{value}}</span>
+                </ng-template>
+              </ngx-datatable-column>
+
+            <ngx-datatable-column name="Department" prop="department" >
+                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span class="mobile-hidden" (click)="sort()">{{column.name}}</span>
+                </ng-template>
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <span class="mobile-hidden">{{value.name}}</span>
+                </ng-template>
+              </ngx-datatable-column>
+
+            <ngx-datatable-column name="Status" prop="status" >
+                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                  <span class="mobile-hidden" (click)="sort()">{{column.name}}</span>
+                </ng-template>
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <span class="mobile-hidden">{{value.name}}</span>
+                </ng-template>
+              </ngx-datatable-column>
+
+            <ngx-datatable-column [flexGrow]="1" name="Actions" class="float-right" prop="id">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                    <svg-icon src="../../../assets/icons/edit.svg" [disabled]="shouldDisableInput" (click)="selectStudent(rowIndex, template)"></svg-icon>
+                    <span class="svg_break"></span>
+                    <svg-icon src="../../../assets/icons/eraser.svg" [disabled]="shouldDisableInput" (click)="deleteStudent(rowIndex)"></svg-icon>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+
+    </div>
+
+</div>
+
+<ng-template #template let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Add a Student</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+    </div>
+    <div *ngIf="selectedStudent">
+        <form #studentForm="ngForm" (ngSubmit)="submitStudentForm()">
+            <div class="modal-body">
+                <fieldset>
+                    <div class="form-group">
+                        <label>First Name: *</label>
+                        <input type="text" class="form-control" 
+                        [(ngModel)]="selectedStudent.name" name="name" 
+                        maxlength="50" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Last Name: *</label>
+                        <input type="text" class="form-control" 
+                        [(ngModel)]="selectedStudent.lastName" name="label" 
+                        maxlength="50" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Index number:</label>
+                        <input type="text" class="form-control" 
+                        [(ngModel)]="selectedStudent.indexNumber" name="index"
+                        maxlength="20">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Department:</label>
+                        <select [compareWith]="equals" [(ngModel)]="selectedStudent.department" name="department" class="form-control">
+                        <option *ngFor="let department of departments" [ngValue]="department">{{department.name}}</option>
+                    </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status:</label>
+                        <select [compareWith]="equals" ngModel [(ngModel)]="selectedStudent.status" name="status" class="form-control" required>
+                            <option *ngFor="let status of statuses" [ngValue]="status">{{status.name}}</option>
+                        </select>
+                    </div>
+
+                </fieldset>
+
+            </div>
+            <div class="modal-footer">
+                <input type="submit" [disabled]="!studentForm.valid" class="btn btn-dark" Submit/>
+                <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">Close</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

@@ -1,0 +1,99 @@
+<svg-icon [@easeTitleRight] class="float-right addButton" src="../../../assets/icons/plus.svg" 
+(click)="openModal(template); cancelSelection()"></svg-icon>
+
+<app-title>Department</app-title>
+
+
+<div class="row" > 
+        <div [ngClass]="{'col-lg-8' : selectedDepartment, 'col-md-12': !selectedDepartment}" [@fadeInOut] *ngIf="toggle">
+      
+          <ngx-datatable class="bootstrap striped" [rows]="departments" [columnMode]="'flex'" [headerHeight]="'auto'"
+            [rowHeight]="'auto'">
+      
+            <ngx-datatable-column name="Name"  prop="name" [flexGrow]="3"></ngx-datatable-column>
+      
+            <ngx-datatable-column name="Label" prop="label" [flexGrow]="3"></ngx-datatable-column>
+
+            <ngx-datatable-column name="Faculty" prop="faculty.name" [flexGrow]="3"></ngx-datatable-column>
+      
+            <ngx-datatable-column [flexGrow]="3" name="Actions" class="float-right" prop="id">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                <svg-icon src="../../../assets/icons/edit.svg" [disabled]="shouldDisableInput" (click)="selectDepartment(rowIndex); scroll()"></svg-icon>
+                <span class="svg_break"></span>
+                <svg-icon src="../../../assets/icons/eraser.svg" [disabled]="shouldDisableInput" (click)="deleteDepartment(rowIndex)"></svg-icon>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+      
+        </div>
+      
+        <div id="formContainer" class="col-lg-4 col-md-12 ml-auto" *ngIf="selectedDepartment">
+          <form #updateDepartmentForm="ngForm" (ngSubmit)="updateDepartment()">
+            <fieldset [disabled]="!selectedDepartment">
+              <div class="form-group">
+                <label>Name: *</label>
+                <input type="text" class="form-control" 
+                [(ngModel)]="selectedDepartment.name" name="name"
+                maxlength="100" required >
+              </div>
+      
+              <div class="form-group">
+                <label>Label:</label>
+                <input type="text" class="form-control" 
+                [(ngModel)]="selectedDepartment.label" name="label"
+                maxlength="10">
+              </div>
+
+              <div class="form-group">
+                  <label>Faculty:</label>
+                  <select [(ngModel)]="selectedDepartment.faculty.id" name="faculty.id" class="form-control" required>
+                      <option *ngFor="let faculty of faculties" [ngValue]="faculty.id">{{faculty.name}}</option>
+                    </select>
+              </div>
+              
+              <button type="submit" [disabled]="updateDepartmentForm.submitted || !updateDepartmentForm.valid" class="btn btn-dark">Submit</button>
+              <button type="button" (click)="cancelSelection()" class="btn btn-default">Cancel</button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+      
+      <ng-template #template let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Add a Department</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        </div>
+        <div class="modal-body">
+          <form #addDepartmentForm="ngForm" id="addDepartmentForm" (ngSubmit)="addDepartment(addDepartmentForm.value)">
+            <fieldset>
+              <div class="form-group">
+                <label>Name: *</label>
+                <input type="text" class="form-control" name="name" 
+                ngModel 
+                maxlength="100" required >
+              </div>
+      
+              <div class="form-group">
+                <label>Label:</label>
+                <input type="text" class="form-control" name="label" 
+                ngModel
+                maxlength="10">
+              </div>
+
+              <div class="form-group">
+                  <label>Faculty:</label>
+                  <select name="faculty" class="form-control" ngModel placeholder="Select a faculty" required>
+                      <option *ngFor="let faculty of faculties" [ngValue]="faculty">{{faculty.name}}</option>
+                    </select>
+              </div>
+      
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" form="addDepartmentForm" class="btn btn-dark" [disabled]="!addDepartmentForm.valid">Submit</button>
+          <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">Close</button>
+        </div>
+      </ng-template>

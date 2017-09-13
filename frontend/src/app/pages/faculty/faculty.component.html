@@ -1,0 +1,83 @@
+<svg-icon [@easeTitleRight] class="float-right addButton" src="../../../assets/icons/plus.svg" 
+(click)="openModal(template); cancelSelection()"></svg-icon>
+
+<app-title>Faculty</app-title>
+
+
+<div class="row" > 
+        <div [ngClass]="{'col-lg-8' : selectedFaculty, 'col-md-12': !selectedFaculty}" [@fadeInOut] *ngIf="toggle">
+      
+          <ngx-datatable class="bootstrap striped" [rows]="faculties" [columnMode]="'flex'" [headerHeight]="'auto'"
+            [rowHeight]="'auto'">
+      
+            <ngx-datatable-column name="Name"  prop="name" [flexGrow]="3"></ngx-datatable-column>
+      
+            <ngx-datatable-column name="Seat" prop="seat" [flexGrow]="3"></ngx-datatable-column>
+      
+            <ngx-datatable-column [flexGrow]="3" name="Actions" class="float-right" prop="id">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-rowIndex="rowIndex">
+                <svg-icon src="../../../assets/icons/edit.svg" [disabled]="shouldDisableInput" (click)="selectFaculty(rowIndex); scroll()"></svg-icon>
+                <span class="svg_break"></span>
+                <svg-icon src="../../../assets/icons/eraser.svg" [disabled]="shouldDisableInput" (click)="deleteFaculty(rowIndex)"></svg-icon>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+      
+        </div>
+      
+        <div id="formContainer" class="col-lg-4 col-md-12 ml-auto" *ngIf="selectedFaculty">
+          <form #updateFacultyForm="ngForm" (ngSubmit)="updateFaculty()">
+            <fieldset [disabled]="!selectedFaculty">
+              <div class="form-group">
+                <label>Name: *</label>
+                <input type="text" class="form-control" 
+                [(ngModel)]="selectedFaculty.name" name="name"
+                  maxlength="100"  required>
+              </div>
+      
+              <div class="form-group">
+                <label>Seat:</label>
+                <input type="text" class="form-control" 
+                [(ngModel)]="selectedFaculty.seat" name="seat"
+                maxlength="50">
+              </div>
+              
+              <button type="submit" [disabled]="updateFacultyForm.submitted || !updateFacultyForm.valid" class="btn btn-dark">Submit</button>
+              <button type="button" (click)="cancelSelection()" class="btn btn-default">Cancel</button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+      
+      <ng-template #template let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Add a Faculty</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        </div>
+        <div class="modal-body">
+          <form #addFacultyForm="ngForm" id="addFacultyForm" (ngSubmit)="addFaculty(addFacultyForm.value)">
+            <fieldset>
+              <div class="form-group">
+                <label>Name: *</label>
+                <input type="text" class="form-control" name="name" 
+                ngModel
+                maxlength="100" required>
+              </div>
+      
+              <div class="form-group">
+                <label>Seat:</label>
+                <input type="text" class="form-control" name="seat" 
+                ngModel
+                maxlength="50">
+              </div>
+      
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" form="addFacultyForm" class="btn btn-dark" [disabled]="!addFacultyForm.valid">Submit</button>
+          <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">Close</button>
+        </div>
+      </ng-template>

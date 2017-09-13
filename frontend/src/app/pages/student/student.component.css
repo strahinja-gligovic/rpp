@@ -1,0 +1,40 @@
+@media screen and (max-width: 800px) {
+    .desktop-hidden {
+      display: initial;
+    }
+    .mobile-hidden {
+      display: none;
+    }
+    .datatable-body-cell-label:first-of-type {
+      text-overflow: unset;
+      white-space: normal;
+      overflow: visible;
+    }
+  }
+  @media screen and (min-width: 800px) {
+    .desktop-hidden {
+      display: none;
+    }
+    .mobile-hidden {
+      display: initial;
+    }
+    .desktop-hidden .expand {
+      width: 100px !important;
+    }
+  }
+
+  .ngx-datatable.bootstrap .datatable-header .datatable-header-cell{
+    vertical-align: top;
+    
+  }
+
+  .datatable-row-detail {
+    padding-left: 15px
+  }
+
+ 
+
+  datatable-scroller.datatable-scroll {
+    width:100% !important;
+  }
+  

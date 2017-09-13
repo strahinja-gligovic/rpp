@@ -1,0 +1,138 @@
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+
+svg-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+svg-icon.addButton {
+  display: 'float' ;
+  width: 40px;
+  height: 40px;
+}
+
+hr.header {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 3px solid rgba(0, 0, 0, 0.16) !important;
+}
+
+.trans--grow{
+  -webkit-transition: width 1s ease-out; /* For Safari 3.1 to 6.0 */
+  transition: width 1s  ease-out;
+  width : 0%;
+}
+
+.grow{
+  width:100%;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  padding-bottom: 45px;
+}
+
+body > .container {
+  padding-top: 40px;
+}
+
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 45px;
+  line-height: 10px; /* Vertically center the text there */
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948;
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442;
+}
+
+.empty-row {
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 20px;
+}
+
+.svg_break {
+    padding-right: 10px;
+}
+
+.eraserButton {
+  fill: #bd362f;
+}
+
+.pencilButton {
+  fill:#51a351;
+}
+
+.btn {
+  cursor: pointer ;
+}
+
+#toast-container {
+  margin-bottom: 30px;
+}
+
+.ngx-datatable.bootstrap {
+    background: transparent !important;
+    margin-bottom: 1%
+  }
+  
+  .ngx-datatable.bootstrap .datatable-body-row {
+    border-bottom: solid 1px #000000;
+  }
+  
+  .ngx-datatable.bootstrap.striped .datatable-row-odd {
+    background: #f7f7f7;
+  }
+  
+  .ngx-datatable.bootstrap.striped .datatable-row-even {
+    background: #FFFFFF;;
+  }
+  
+  .ngx-datatable.bootstrapfcw:not(.cell-selection) .datatable-body-row:hover, .ngx-datatable.bootstrap:not(.cell-selection) .datatable-body-row:hover .datatable-row-group {
+    background-color:		#B0C4DE;
+    transition-property: background;
+    transition-duration: 0.3s;
+    transition-timing-function: linear;
+  }
+
+  .ngx-datatable.bootstrap.cell-selection .datatable-body-cell.active:hover, .ngx-datatable.bootstrap.cell-selection .datatable-body-cell.active:hover .datatable-row-group {
+    background-color: rgba(72, 70, 107, 0.22);
+    color: rgba(255, 255, 255, 0.16);
+  }
+  .ngx-datatable.bootstrap .datatable-header {
+    border-bottom: solid 2.5px #000000 !important;
+  }
+  .ngx-datatable.bootstrap .datatable-header .datatable-header-cell { 
+    color: #000000;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 6px;
+    vertical-align: bottom;
+    height: auto;
+  }
+  .ngx-datatable.bootstrap .datatable-body .datatable-body-row .datatable-body-cell {
+    padding: 6px;
+  }
+
+  .datatable-body-cell-label {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
