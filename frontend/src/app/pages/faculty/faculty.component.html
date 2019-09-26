@@ -16,9 +16,9 @@
       
             <ngx-datatable-column [flexGrow]="3" name="Actions" class="float-right" prop="id">
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-rowIndex="rowIndex">
-                <svg-icon src="../../../assets/icons/edit.svg" [disabled]="shouldDisableInput" (click)="selectFaculty(rowIndex); scroll()"></svg-icon>
+                <svg-icon src="../../../assets/icons/edit.svg" [disabled]="shouldDisableInput" (click)="selectFaculty(rowIndex); scroll()" [svgStyle]="{'height.px':25,'width.px':25}"></svg-icon>
                 <span class="svg_break"></span>
-                <svg-icon src="../../../assets/icons/eraser.svg" [disabled]="shouldDisableInput" (click)="deleteFaculty(rowIndex)"></svg-icon>
+                <svg-icon src="../../../assets/icons/eraser.svg" [disabled]="shouldDisableInput" (click)="deleteFaculty(rowIndex)" [svgStyle]="{'height.px':25,'width.px':25}"></svg-icon>
               </ng-template>
             </ngx-datatable-column>
           </ngx-datatable>

@@ -1,12 +1,13 @@
-import { Component, OnInit, TemplateRef, HostBinding, trigger, transition, style, animate, state, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, TemplateRef,  ViewContainerRef } from '@angular/core';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 import { DepartmentService } from './department.service';
 import { Department } from '../../models/department.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { flyInOut, ease, fadeInOut, easeTitleRight } from '../../util/animations/animations';
-import { ToastsManager } from 'ng2-toastr/src/toast-manager';
 import { Faculty } from '../../models/faculty.model';
 import { FacultyService } from '../faculty/faculty.service';
 import { SCROLL_VIEW_DELAY, FADE_IN_DELAY } from '../../util/const';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -27,8 +28,8 @@ export class DepartmentComponent implements OnInit {
   public toggle: boolean;
 
   constructor(private departmentService: DepartmentService, private modalService: BsModalService,
-    public toastr: ToastsManager, vcr: ViewContainerRef, private facultyService: FacultyService ) {
-      this.toastr.setRootViewContainerRef(vcr);
+    public toastr: ToastrService, vcr: ViewContainerRef, private facultyService: FacultyService ) {
+      // this.toastr.setRootViewContainerRef(vcr);
      }
 
   ngOnInit() {
@@ -98,7 +99,7 @@ export class DepartmentComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
-    this.toastr.clearAllToasts();
+    // this.toastr.clearAllToasts();
     this.modalRef = this.modalService.show(template);
   }
 

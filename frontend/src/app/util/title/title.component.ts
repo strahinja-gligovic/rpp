@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { flyInOut, easeTitleLeft, easeTitleRight } from '../../util/animations/animations';
 
 @Component({
@@ -11,9 +11,9 @@ import { flyInOut, easeTitleLeft, easeTitleRight } from '../../util/animations/a
 })
 export class TitleComponent implements OnInit {
 
-  @ViewChild('hr') hr: ElementRef;
+  @ViewChild('hr', {static: true}) hr: ElementRef;
   grow = false;
-  constructor(private renderer: Renderer) { }
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit() {
     setTimeout(() => this.grow = true, 200);

@@ -1,4 +1,4 @@
-import { trigger, state, style, transition, animate } from '@angular/core';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 export const fadeInOut = trigger('fadeInOut', [
     transition(':enter', [   // :enter is alias to 'void => *'

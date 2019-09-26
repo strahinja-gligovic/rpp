@@ -1,11 +1,11 @@
-import { Component, OnInit, TemplateRef, HostBinding, trigger, transition, style, animate, state, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { FacultyService } from './faculty.service';
 import { Faculty } from '../../models/faculty.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { flyInOut, ease, fadeInOut, easeTitleRight } from '../../util/animations/animations';
-import { ToastsManager } from 'ng2-toastr/src/toast-manager';
-import { HttpResponse } from 'selenium-webdriver/http';
 import { SCROLL_VIEW_DELAY, FADE_IN_DELAY } from '../../util/const';
+import { trigger, transition, style, animate, state } from '@angular/animations';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -25,8 +25,8 @@ export class FacultyComponent implements OnInit {
   public toggle: boolean;
 
   constructor(private facultyService: FacultyService, private modalService: BsModalService,
-    public toastr: ToastsManager, vcr: ViewContainerRef) {
-    this.toastr.setRootViewContainerRef(vcr);
+    public toastr: ToastrService, vcr: ViewContainerRef) {
+    // this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -88,7 +88,7 @@ export class FacultyComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
-    this.toastr.clearAllToasts();
+    // this.toastr.clearAllToasts();
     this.modalRef = this.modalService.show(template);
   }
 

@@ -1,16 +1,15 @@
-import { Component, OnInit, TemplateRef, HostBinding, trigger, transition, style, 
-  animate, state, ViewContainerRef, ViewEncapsulation, ViewChild
-} from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewContainerRef, ViewEncapsulation, ViewChild } from '@angular/core';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 import { StudentService } from './student.service';
 import { Student } from '../../models/student.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { flyInOut, ease, fadeInOut, easeTitleRight } from '../../util/animations/animations';
-import { ToastsManager } from 'ng2-toastr/src/toast-manager';
 import { Department } from '../../models/department.model';
 import { DepartmentService } from '../department/department.service';
 import { Status } from '../../models/status.model';
 import { StatusService } from '../status/status.service';
 import { FADE_IN_DELAY } from '../../util/const';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -32,12 +31,12 @@ export class StudentComponent implements OnInit {
   public selectedStudent: Student;
   public toggle: boolean;
 
-  @ViewChild('studentTable') table;
+  @ViewChild('studentTable', {static: true}) table;
 
   constructor(private studentService: StudentService, private modalService: BsModalService,
-    public toastr: ToastsManager, vcr: ViewContainerRef, private departmentService: DepartmentService,
+    public toastr: ToastrService, vcr: ViewContainerRef, private departmentService: DepartmentService,
     private statusService: StatusService) {
-    this.toastr.setRootViewContainerRef(vcr);
+    // this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -125,7 +124,7 @@ export class StudentComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
-    this.toastr.clearAllToasts();
+    // this.toastr.clearAllToasts();
     this.selectedStudent = new Student();
     this.modalRef = this.modalService.show(template);
   }

@@ -1,11 +1,11 @@
-import { Component, OnInit, TemplateRef, HostBinding, trigger, transition, style,
-  animate, state, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewContainerRef, ViewChild } from '@angular/core';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 import { StatusService } from './status.service';
 import { Status } from '../../models/status.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { flyInOut, ease, fadeInOut, easeTitleRight } from '../../util/animations/animations';
-import { ToastsManager } from 'ng2-toastr/src/toast-manager';
 import { SCROLL_VIEW_DELAY, FADE_IN_DELAY } from '../../util/const';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -24,11 +24,11 @@ export class StatusComponent implements OnInit {
   public selectedStatus: Status;
   public toggle: boolean;
 
-  @ViewChild('statusTable') statusTable: any;
+  @ViewChild('statusTable', {static: true}) statusTable: any;
 
   constructor(private statusService: StatusService, private modalService: BsModalService,
-    public toastr: ToastsManager, vcr: ViewContainerRef) {
-    this.toastr.setRootViewContainerRef(vcr);
+    public toastr: ToastrService, vcr: ViewContainerRef) {
+    // this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -91,7 +91,7 @@ export class StatusComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
-    this.toastr.clearAllToasts();
+    // this.toastr.clearAllToasts();
     this.modalRef = this.modalService.show(template);
   }
 
