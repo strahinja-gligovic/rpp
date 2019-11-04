@@ -13,8 +13,8 @@ import com.rpp.models.Student;
 import com.rpp.models.StudentDao;
 
 @RestController
-@RequestMapping("student")
-public class StudentController {
+@RequestMapping("${api.base_url}student")
+public class StudentApiController{
 	
 	@Autowired
 	StudentDao studentDao;

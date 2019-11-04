@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core/';
 import { Department } from '../../models/department.model';
-import { BASE_URL } from '../../util/const';
+import { API_BASE_URL } from '../../util/const';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 
@@ -12,7 +12,7 @@ export class DepartmentService {
     }
 
     getDepartments(): Promise<Department[]> {
-        return this.http.get(BASE_URL + '/department/gets')
+        return this.http.get(API_BASE_URL + '/department/gets')
             .toPromise()
             .then(response => response as Department[])
             .catch(this.handleError);
@@ -20,14 +20,14 @@ export class DepartmentService {
 
     getDepartment(departmentId: number): Promise<Department> {
         const params = new HttpParams().set('departmentId', departmentId.toString());
-        return this.http.get(BASE_URL + '/department/get', { params })
+        return this.http.get(API_BASE_URL + '/department/get', { params })
             .toPromise()
             .then(response => response as Department)
             .catch(this.handleError);
     }
 
     updateDepartment(department: Department): Promise<any> {
-        return this.http.put(BASE_URL + '/department/update', department)
+        return this.http.put(API_BASE_URL + '/department/update', department)
             .toPromise()
             .then(response => response as Department)
             .catch(this.handleError);
@@ -35,13 +35,13 @@ export class DepartmentService {
 
     deleteDepartment(departmentId: number): Promise<any> {
         const params = new HttpParams().set('departmentId', departmentId.toString());
-        return this.http.delete(BASE_URL + '/department/delete', { params })
+        return this.http.delete(API_BASE_URL + '/department/delete', { params })
             .toPromise()
             .catch(this.handleError);
     }
 
     addDepartment(department: Department): Promise<number> {
-        return this.http.post(BASE_URL + '/department/add', department)
+        return this.http.post(API_BASE_URL + '/department/add', department)
             .toPromise()
             .then(response => response as number)
             .catch(this.handleError);

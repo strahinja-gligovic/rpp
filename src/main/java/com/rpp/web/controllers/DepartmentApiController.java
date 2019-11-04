@@ -14,8 +14,8 @@ import com.rpp.models.Department;
 import com.rpp.models.DepartmentDao;
 
 @RestController
-@RequestMapping("department")
-public class DepartmentController {
+@RequestMapping("${api.base_url}department")
+public class DepartmentApiController {
 	
 	@Autowired
 	DepartmentDao departmentDao;

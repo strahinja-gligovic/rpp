@@ -15,8 +15,8 @@ import com.rpp.models.Status;
 import com.rpp.models.StatusDao;
 
 @RestController
-@RequestMapping("status")
-public class StatusController {
+@RequestMapping("${api.base_url}status")
+public class StatusApiController {
 	
 	@Autowired
 	StatusDao statusDao;

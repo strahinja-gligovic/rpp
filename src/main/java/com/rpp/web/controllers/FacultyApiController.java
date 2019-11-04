@@ -14,8 +14,8 @@ import com.rpp.models.Faculty;
 import com.rpp.models.FacultyDao;
 
 @RestController
-@RequestMapping(value = "faculty")
-public class FacultyController {
+@RequestMapping("${api.base_url}faculty")
+public class FacultyApiController{
 
 	@Autowired
 	FacultyDao facultyDao;
