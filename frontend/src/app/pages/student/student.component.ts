@@ -1,5 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewContainerRef, ViewEncapsulation, ViewChild } from '@angular/core';
-import { trigger, transition, style, animate, state } from '@angular/animations';
+import { Component, OnInit, TemplateRef, ViewEncapsulation, ViewChild } from '@angular/core';
 import { StudentService } from './student.service';
 import { Student } from '../../models/student.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -24,19 +23,17 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class StudentComponent implements OnInit {
   private modalRef: any;
-  private shouldDisableInput: boolean;
+  private disableInput: boolean;
   private students: Student[];
   private departments: Department[];
   private statuses: Status[];
   public selectedStudent: Student;
   public toggle: boolean;
 
-  @ViewChild('studentTable', {static: true}) table;
+  @ViewChild('studentTable', { static: true }) table;
 
   constructor(private studentService: StudentService, private modalService: BsModalService,
-    public toastr: ToastrService, vcr: ViewContainerRef, private departmentService: DepartmentService,
-    private statusService: StatusService) {
-    // this.toastr.setRootViewContainerRef(vcr);
+    public toastr: ToastrService, private departmentService: DepartmentService, private statusService: StatusService) {
   }
 
   ngOnInit() {
@@ -47,11 +44,11 @@ export class StudentComponent implements OnInit {
   }
 
   getStudents() {
-    this.shouldDisableInput = true;
+    this.disableInput = true;
     this.studentService.getStudents()
       .then(students => {
         this.students = students;
-        this.shouldDisableInput = false;
+        this.disableInput = false;
       }).catch(() => this.onError());
   }
 
@@ -70,11 +67,11 @@ export class StudentComponent implements OnInit {
   }
 
   getStudent(studentId: number) {
-    this.shouldDisableInput = true;
+    this.disableInput = true;
     this.studentService.getStudent(studentId)
       .then(student => {
         this.selectedStudent = student;
-        this.shouldDisableInput = false;
+        this.disableInput = false;
       }).catch(() => this.onError());
   }
 
@@ -124,7 +121,6 @@ export class StudentComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
-    // this.toastr.clearAllToasts();
     this.selectedStudent = new Student();
     this.modalRef = this.modalService.show(template);
   }

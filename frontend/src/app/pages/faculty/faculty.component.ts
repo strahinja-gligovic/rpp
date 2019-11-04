@@ -19,14 +19,13 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class FacultyComponent implements OnInit {
   private modalRef: any;
-  private shouldDisableInput: boolean;
+  private disableInput: boolean;
   private faculties: Faculty[];
   public selectedFaculty: Faculty;
   public toggle: boolean;
 
   constructor(private facultyService: FacultyService, private modalService: BsModalService,
-    public toastr: ToastrService, vcr: ViewContainerRef) {
-    // this.toastr.setRootViewContainerRef(vcr);
+    public toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -35,20 +34,20 @@ export class FacultyComponent implements OnInit {
   }
 
   getFacultyes() {
-    this.shouldDisableInput = true;
+    this.disableInput = true;
     this.facultyService.getFaculties()
       .then(faculties => {
         this.faculties = faculties;
-        this.shouldDisableInput = false;
+        this.disableInput = false;
       }).catch(() => this.onError());
   }
 
   getFaculty(facultyId: number) {
-    this.shouldDisableInput = true;
+    this.disableInput = true;
     this.facultyService.getFaculty(facultyId)
       .then(faculty => {
         this.selectedFaculty = faculty;
-        this.shouldDisableInput = false;
+        this.disableInput = false;
       }).catch(() => this.onError());
   }
 

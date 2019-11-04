@@ -1,5 +1,4 @@
-import { Component, OnInit, TemplateRef,  ViewContainerRef } from '@angular/core';
-import { trigger, transition, style, animate, state } from '@angular/animations';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { DepartmentService } from './department.service';
 import { Department } from '../../models/department.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -21,15 +20,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DepartmentComponent implements OnInit {
   private modalRef: any;
-  private shouldDisableInput: boolean;
+  private disableInput: boolean;
   private departments: Department[];
   private faculties: Faculty[];
   public selectedDepartment: Department;
   public toggle: boolean;
 
   constructor(private departmentService: DepartmentService, private modalService: BsModalService,
-    public toastr: ToastrService, vcr: ViewContainerRef, private facultyService: FacultyService ) {
-      // this.toastr.setRootViewContainerRef(vcr);
+    public toastr: ToastrService, private facultyService: FacultyService ) {
      }
 
   ngOnInit() {
@@ -39,11 +37,11 @@ export class DepartmentComponent implements OnInit {
   }
 
   getDepartments() {
-    this.shouldDisableInput = true;
+    this.disableInput = true;
     this.departmentService.getDepartments()
       .then(departments => {
         this.departments = departments;
-        this.shouldDisableInput = false;
+        this.disableInput = false;
       }).catch(() => this.onError());
   }
 
@@ -55,11 +53,11 @@ export class DepartmentComponent implements OnInit {
   }
 
   getDepartment(departmentId: number) {
-    this.shouldDisableInput = true;
+    this.disableInput = true;
     this.departmentService.getDepartment(departmentId)
       .then(department => {
         this.selectedDepartment = department;
-        this.shouldDisableInput = false;
+        this.disableInput = false;
       }).catch(() => this.onError());
   }
 

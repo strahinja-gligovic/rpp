@@ -19,7 +19,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class StatusComponent implements OnInit {
   private modalRef: any;
-  private shouldDisableInput: boolean;
+  private disableInput: boolean;
   private statuses: Status[];
   public selectedStatus: Status;
   public toggle: boolean;
@@ -27,8 +27,7 @@ export class StatusComponent implements OnInit {
   @ViewChild('statusTable', {static: true}) statusTable: any;
 
   constructor(private statusService: StatusService, private modalService: BsModalService,
-    public toastr: ToastrService, vcr: ViewContainerRef) {
-    // this.toastr.setRootViewContainerRef(vcr);
+    public toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -37,20 +36,20 @@ export class StatusComponent implements OnInit {
   }
 
   getStatuses() {
-    this.shouldDisableInput = true;
+    this.disableInput = true;
     this.statusService.getStatuses()
       .then(statuses => {
         this.statuses = statuses;
-        this.shouldDisableInput = false;
+        this.disableInput = false;
       }).catch(() => this.onError());
   }
 
   getStatus(statusId: number) {
-    this.shouldDisableInput = true;
+    this.disableInput = true;
     this.statusService.getStatus(statusId)
       .then(status => {
         this.selectedStatus = status;
-        this.shouldDisableInput = false;
+        this.disableInput = false;
       }).catch(() => this.onError());
   }
 
