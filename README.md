@@ -1,6 +1,11 @@
 # rpp
 
-Razvoj Programskih Proizvoda
+Razvoj Programskih Proizvoda - Faculty of Technical Sciences
+
+Web application with Spring Boot as the backend and Angular as the frontend.
+
+The backend is a simple API which provides access to a Postgre database, and it also serves a single Angular page which contains the rest of the application.
+There are is no security implemented, as per the specifications.
 
 ## Installation
 
