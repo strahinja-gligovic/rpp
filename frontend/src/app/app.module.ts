@@ -24,6 +24,7 @@ export const appRoutes: Routes = [
   { path: 'department', component: DepartmentComponent },
   { path: 'faculty', component: FacultyComponent },
   { path: '', redirectTo: '/student', pathMatch: 'full' },
+  { path: '**', redirectTo: '/student' }
 ];
 
 @NgModule({

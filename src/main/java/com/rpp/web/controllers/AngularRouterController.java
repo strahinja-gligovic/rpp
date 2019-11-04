@@ -10,4 +10,9 @@ public class AngularRouterController {
 	public String index() {
 	    return "forward:/index.html";
 	}
+	
+	@RequestMapping(value = "/{[path:[^\\.]*}")
+    public String redirect() {
+        return "forward:/index.html";
+    } 
 }
