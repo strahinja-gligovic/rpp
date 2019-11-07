@@ -1,5 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewContainerRef, ViewChild } from '@angular/core';
-import { trigger, transition, style, animate, state } from '@angular/animations';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { StatusService } from './status.service';
 import { Status } from '../../models/status.model';
 import { BsModalService } from 'ngx-bootstrap/modal';

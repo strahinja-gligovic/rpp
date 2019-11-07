@@ -1,10 +1,9 @@
-import { Component, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FacultyService } from './faculty.service';
 import { Faculty } from '../../models/faculty.model';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { flyInOut, ease, fadeInOut, easeTitleRight } from '../../util/animations/animations';
 import { SCROLL_VIEW_DELAY, FADE_IN_DELAY } from '../../util/const';
-import { trigger, transition, style, animate, state } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
 
 
